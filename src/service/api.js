@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-const getData = async () => {
-  const data = await axios.get(`${process.env.REACT_APP_SERVER_URL}/posts`)
-  console.log(data.data)
+const getPosts = async () => {
+  const posts = await axios.get(`${process.env.REACT_APP_SERVER_URL}/posts`)
+  console.log(posts.data)
 }
 
-export default getData
+export default getPosts

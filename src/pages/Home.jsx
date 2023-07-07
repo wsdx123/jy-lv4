@@ -1,9 +1,9 @@
-import getData from 'service/api'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
+import getPosts from 'service/api'
 
 function Home() {
   useEffect(() => {
-    getData()
+    getPosts()
   }, [])
   return <div>Home</div>
 }

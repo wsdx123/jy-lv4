@@ -1,9 +1,9 @@
-import React from 'react'
+import Header from 'pages/Header'
 
 function Layout({ children }) {
   return (
     <div>
-      <header>내가만들 페이지</header>
+      <Header />
       {children}
     </div>
   )
