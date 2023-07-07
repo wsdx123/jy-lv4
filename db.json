@@ -1,3 +1,12 @@
 {
-  "posts": [{ "id": 1, "title": "json-server" }]
+  "posts": [
+    {
+      "id": "10f552ec-18d7-4091-9ec7-29b012949cd3",
+      "context": "ㅎㅇㄹ"
+    },
+    {
+      "id": "b6d9b2ef-639f-415b-a9b1-07f987298c9a",
+      "context": "ㅎㅇㅎㅇ"
+    }
+  ]
 }

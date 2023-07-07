@@ -2,7 +2,30 @@ import axios from 'axios'
 
 const getPosts = async () => {
   const posts = await axios.get(`${process.env.REACT_APP_SERVER_URL}/posts`)
-  console.log(posts.data)
+  return posts.data
 }
 
-export default getPosts
+const addPost = async (newPost) => {
+  await axios.post(`${process.env.REACT_APP_SERVER_URL}/posts`, newPost)
+}
+
+const deletePost = async (id) => {
+  await axios.delete(`${process.env.REACT_APP_SERVER_URL}/posts/${id}`)
+}
+
+const registerJWT = async (id, password) => {
+  await axios.post(`${process.env.REACT_APP_JWT_URL}/login`, {
+    id,
+    password
+  })
+}
+
+const loginJWT = async (id, password) => {
+  const token = await axios.post(`${process.env.REACT_APP_JWT_URL}/login`, {
+    id,
+    password
+  })
+  return token
+}
+
+export { getPosts, addPost, deletePost, registerJWT, loginJWT }
