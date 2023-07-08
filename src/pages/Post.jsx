@@ -1,18 +1,12 @@
+import { useMutationHook } from 'hooks/queryHooks'
 import { useState } from 'react'
-import { useMutation, useQueryClient } from 'react-query'
 import { addPost } from 'service/api'
 import { v4 } from 'uuid'
 
 function Post() {
   const [input, setInput] = useState('')
-  const queryClient = useQueryClient()
 
-  const mutation = useMutation(addPost, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('posts')
-      console.log('성공')
-    }
-  })
+  const mutation = useMutationHook(addPost, 'posts')
 
   const handleSubmit = (e) => {
     e.preventDefault()

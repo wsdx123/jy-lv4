@@ -13,8 +13,12 @@ const deletePost = async (id) => {
   await axios.delete(`${process.env.REACT_APP_SERVER_URL}/posts/${id}`)
 }
 
+const updatePost = async (data) => {
+  await axios.patch(`${process.env.REACT_APP_SERVER_URL}/posts/${data.id}`, data)
+}
+
 const registerJWT = async (id, password) => {
-  await axios.post(`${process.env.REACT_APP_JWT_URL}/login`, {
+  await axios.post(`${process.env.REACT_APP_JWT_URL}/register`, {
     id,
     password
   })
@@ -28,4 +32,4 @@ const loginJWT = async (id, password) => {
   return token
 }
 
-export { getPosts, addPost, deletePost, registerJWT, loginJWT }
+export { getPosts, addPost, deletePost, updatePost, registerJWT, loginJWT }

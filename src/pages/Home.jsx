@@ -1,20 +1,29 @@
+import { useMutationHook } from 'hooks/queryHooks'
 import { useState } from 'react'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { deletePost, getPosts } from 'service/api'
+import { useQuery } from 'react-query'
+import { Link } from 'react-router-dom'
+import { deletePost, getPosts, updatePost } from 'service/api'
 
 function Home() {
   const [updateToggle, setUpdateToggle] = useState(false)
+  const [updateInput, setUpdateInput] = useState('')
   const { isLoading, isError, data } = useQuery('posts', getPosts)
-  const queryClient = useQueryClient()
 
-  const mutation = useMutation(deletePost, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('posts')
-    }
-  })
+  const deleteMutation = useMutationHook(deletePost, 'posts')
+
+  const UpdateMutation = useMutationHook(updatePost, 'posts')
 
   const handleDelete = (id) => {
-    mutation.mutate(id)
+    deleteMutation.mutate(id)
+  }
+
+  const handleUpdate = (item) => {
+    const updateData = {
+      ...item,
+      context: updateInput
+    }
+    UpdateMutation.mutate(updateData)
+    setUpdateToggle(false)
   }
 
   if (isLoading) {
@@ -26,13 +35,16 @@ function Home() {
 
   return (
     <div>
+      <Link to='/post'>작성</Link>
       {data.map((el) => (
         <div key={el.id}>
           <div>{`${el.id} : ${el.context}`}</div>
           {updateToggle === el.id && (
             <div>
-              <input defaultValue={el.context} />
-              <button type='button'>완료</button>
+              <input value={updateInput} onChange={(e) => setUpdateInput(e.target.value)} />
+              <button type='button' onClick={() => handleUpdate(el)}>
+                완료
+              </button>
               <button type='button' onClick={() => setUpdateToggle(false)}>
                 취소
               </button>

@@ -52,7 +52,7 @@
     "linebreak-style": 0,
     "object-curly-newline": "off",
 
-    // "max-lines": ["warn", 150],
+    "max-len": ["error", 120],
     "no-param-reassign": ["error", { "props": false }],
     "no-use-before-define": "off",
     "comma-dangle": ["error", "never"],
