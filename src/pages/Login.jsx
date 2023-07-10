@@ -1,11 +1,13 @@
-import axios from 'axios'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { loginJWT } from 'service/api'
 
 function Login() {
   const [loginInfo, setLoginInfo] = useState({
     userId: '',
     password: ''
   })
+  const navigate = useNavigate()
 
   const handleRegister = async (e) => {
     e.preventDefault()
@@ -17,15 +19,24 @@ function Login() {
     }
 
     try {
-      await axios.post(`${process.env.REACT_APP_JWT_URL}/login`, {
-        id: userId,
-        password
-      })
+      const tmp = await loginJWT(userId, password)
+      localStorage.setItem('token', JSON.stringify(tmp))
+      setLoginInfo({ userId: '', password: '' })
+      navigate('/')
     } catch (error) {
       const { message } = error.response.data
       alert(message)
     }
   }
+
+  // const tmp = async () => {
+  //   try {
+  //     const response = await authorizeJWT(token)
+  //     console.log(response.data.message)
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
 
   return (
     <div>
@@ -42,6 +53,9 @@ function Login() {
         />
         <button type='submit'>로그인</button>
       </form>
+      {/* <button type='button' onClick={tmp}>
+        인증
+      </button> */}
     </div>
   )
 }
