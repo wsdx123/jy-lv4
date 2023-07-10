@@ -8,6 +8,12 @@ function Header() {
   const navigate = useNavigate()
   const location = useLocation()
 
+  const handleLogOut = () => {
+    localStorage.removeItem('token')
+    alert('로그아웃되었습니다.')
+    navigate('/login')
+  }
+
   useEffect(() => {
     const authorUser = async () => {
       try {
@@ -20,7 +26,12 @@ function Header() {
         console.log(error.response.data.message)
         setIsLogin(false)
         if (location.pathname === '/register' || location.pathname === '/login') return
-        alert('로그인 후 이용바랍니다')
+        if (localStorage.getItem('token')) {
+          alert('토큰이 만료되었습니다. 다시 로그인 바랍니다.')
+          localStorage.removeItem('token')
+        } else {
+          alert('로그인 후 이용바랍니다')
+        }
         navigate('/login')
       }
     }
@@ -33,7 +44,9 @@ function Header() {
       </Link>
       {islogin ? (
         <div>
-          <button type='button'>로그아웃</button>
+          <button onClick={handleLogOut} type='button'>
+            로그아웃
+          </button>
         </div>
       ) : (
         <div>
