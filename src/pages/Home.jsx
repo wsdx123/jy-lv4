@@ -1,3 +1,4 @@
+import Modal from 'components/Modal'
 import { useMutationHook } from 'hooks/queryHooks'
 import { useState } from 'react'
 import { useQuery } from 'react-query'
@@ -35,6 +36,7 @@ function Home() {
 
   return (
     <div>
+      <Modal />
       <Link to='/post'>작성</Link>
       {data.map((el) => (
         <div key={el.id}>
