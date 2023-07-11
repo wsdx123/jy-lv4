@@ -26,6 +26,15 @@ function Home() {
     setUpdateToggle(false)
   }
 
+  // useEffect(() => {
+  //   if (!localStorage.getItem('token')) {
+  //     alert('로그인하셈')
+  //     navigate('/login')
+  //     return
+  //   }
+  //   useAuthorUser()
+  // }, [navigate])
+
   if (isLoading) {
     return <div>Loading...</div>
   }

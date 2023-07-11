@@ -25,11 +25,20 @@ const registerJWT = async (id, password) => {
 }
 
 const loginJWT = async (id, password) => {
-  const token = await axios.post(`${process.env.REACT_APP_JWT_URL}/login`, {
+  const response = await axios.post(`${process.env.REACT_APP_JWT_URL}/login`, {
     id,
     password
   })
-  return token
+  return response.data.token
 }
 
-export { getPosts, addPost, deletePost, updatePost, registerJWT, loginJWT }
+const authorizeJWT = async (token) => {
+  const response = await axios.get(`${process.env.REACT_APP_JWT_URL}/user`, {
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  })
+  return response
+}
+
+export { getPosts, addPost, deletePost, updatePost, registerJWT, loginJWT, authorizeJWT }
