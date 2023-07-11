@@ -1,25 +1,61 @@
-import axios from 'axios'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { loginJWT } from 'service/api'
 
 function Login() {
-  const [userId, setUserId] = useState('')
-  const [password, setPassword] = useState('')
+  const [loginInfo, setLoginInfo] = useState({
+    userId: '',
+    password: ''
+  })
+  const navigate = useNavigate()
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault()
-    axios.post(`${process.env.REACT_APP_JWT_URL}/login`, {
-      id: userId,
-      password
-    })
+
+    const { userId, password } = loginInfo
+    if (userId === '' || password === '') {
+      alert('아이디 비번 입력해')
+      return
+    }
+
+    try {
+      const tmp = await loginJWT(userId, password)
+      localStorage.setItem('token', JSON.stringify(tmp))
+      setLoginInfo({ userId: '', password: '' })
+      navigate('/')
+    } catch (error) {
+      const { message } = error.response.data
+      alert(message)
+    }
   }
+
+  // const tmp = async () => {
+  //   try {
+  //     const response = await authorizeJWT(token)
+  //     console.log(response.data.message)
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
 
   return (
     <div>
       <form onSubmit={handleRegister}>
-        <input type='text' value={userId} onChange={(e) => setUserId(e.target.value)} />
-        <input type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input
+          type='text'
+          value={loginInfo.userId}
+          onChange={(e) => setLoginInfo({ ...loginInfo, userId: e.target.value })}
+        />
+        <input
+          type='password'
+          value={loginInfo.password}
+          onChange={(e) => setLoginInfo({ ...loginInfo, password: e.target.value })}
+        />
         <button type='submit'>로그인</button>
       </form>
+      {/* <button type='button' onClick={tmp}>
+        인증
+      </button> */}
     </div>
   )
 }

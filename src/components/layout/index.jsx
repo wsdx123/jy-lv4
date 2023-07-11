@@ -7,10 +7,12 @@ function Layout({ children }) {
   return (
     <div>
       <Header />
-      <div className={styles.contents}>{children}</div>
+
+      <main className={styles.contents}>{children}</main>
       <ModalPortal>
         <Modal />
       </ModalPortal>
+
     </div>
   )
 }

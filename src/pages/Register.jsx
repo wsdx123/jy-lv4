@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { registerJWT } from 'service/api'
 
 function Register() {
@@ -6,6 +7,7 @@ function Register() {
     userId: '',
     password: ''
   })
+  const navigate = useNavigate()
 
   const handleRegister = async (e) => {
     e.preventDefault()
@@ -13,8 +15,10 @@ function Register() {
     try {
       await registerJWT(userId, password)
       setRegisterInfo({ userId: '', password: '' })
+      alert('회원가입 완료! 로그인 후 사용해주세요')
+      navigate('/login')
     } catch (error) {
-      console.error(error)
+      alert(error.response.data.message)
     }
   }
 
