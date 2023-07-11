@@ -1,12 +1,17 @@
 import { useMutationHook } from 'hooks/queryHooks'
 import { useState } from 'react'
 import { useQuery } from 'react-query'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { openAlert } from 'redux/modules/modalSlice'
 import { deletePost, getPosts, updatePost } from 'service/api'
 
 function Home() {
   const [updateToggle, setUpdateToggle] = useState(false)
   const [updateInput, setUpdateInput] = useState('')
+
+  const dispatch = useDispatch()
+
   const { isLoading, isError, data } = useQuery('posts', getPosts)
 
   const deleteMutation = useMutationHook(deletePost, 'posts')
@@ -14,6 +19,7 @@ function Home() {
   const UpdateMutation = useMutationHook(updatePost, 'posts')
 
   const handleDelete = (id) => {
+    dispatch(openAlert('test alert'))
     deleteMutation.mutate(id)
   }
 

@@ -1,0 +1,35 @@
+.outside {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.modalBody {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 10px;
+  width: 400px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 10px;
+}
+.content {
+  margin: 10px;
+}
+.closeBtn {
+  margin: 10px 10px 10px auto;
+}
