@@ -1,5 +1,7 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { openAlert } from 'redux/modules/modalSlice'
 import { loginJWT } from 'service/api'
 
 function Login() {
@@ -8,13 +10,15 @@ function Login() {
     password: ''
   })
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleRegister = async (e) => {
     e.preventDefault()
 
     const { userId, password } = loginInfo
     if (userId === '' || password === '') {
-      alert('아이디 비번 입력해')
+      dispatch(openAlert('아이디 혹은 비밀번호를 입력해주세요.'))
+
       return
     }
 
@@ -25,7 +29,8 @@ function Login() {
       navigate('/')
     } catch (error) {
       const { message } = error.response.data
-      alert(message)
+      dispatch(openAlert(message))
+      setLoginInfo({ ...loginInfo, password: '' })
     }
   }
 

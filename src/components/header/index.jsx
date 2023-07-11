@@ -1,42 +1,49 @@
 import styles from 'components/header/Header.module.css'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { openAlert } from 'redux/modules/modalSlice'
 import { authorizeJWT } from 'service/api'
 
 function Header() {
   const [islogin, setIsLogin] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
+  const dispatch = useDispatch()
 
   const handleLogOut = () => {
     localStorage.removeItem('token')
-    alert('로그아웃되었습니다.')
+    dispatch(openAlert('로그아웃되었습니다.'))
     navigate('/login')
   }
 
-  useEffect(() => {
-    const authorUser = async () => {
-      try {
-        await authorizeJWT(JSON.parse(localStorage.getItem('token')))
-        setIsLogin(true)
-        if (location.pathname === '/register' || location.pathname === '/login') {
-          navigate('/')
-        }
-      } catch (error) {
-        console.log(error.response.data.message)
-        setIsLogin(false)
-        if (location.pathname === '/register' || location.pathname === '/login') return
-        if (localStorage.getItem('token')) {
-          alert('토큰이 만료되었습니다. 다시 로그인 바랍니다.')
-          localStorage.removeItem('token')
-        } else {
-          alert('로그인 후 이용바랍니다')
-        }
-        navigate('/login')
+  const authorUser = useCallback(async () => {
+    try {
+      await authorizeJWT(JSON.parse(localStorage.getItem('token')))
+      setIsLogin(true)
+      if (location.pathname === '/register' || location.pathname === '/login') {
+        navigate('/')
       }
+    } catch (error) {
+      console.log(error.response.data.message)
+      setIsLogin(false)
+      if (location.pathname === '/register' || location.pathname === '/login') return
+      if (localStorage.getItem('token')) {
+        dispatch(openAlert('토큰이 만료되었습니다. 다시 로그인 바랍니다.'))
+        localStorage.removeItem('token')
+      } else {
+        dispatch(openAlert('로그인 후 이용바랍니다'))
+      }
+      navigate('/login')
     }
+  }, [dispatch, location.pathname, navigate])
+
+  useEffect(() => {
+    /*
+    if ((location.pathname === '/register' || location.pathname === '/login') && !localStorage.getItem('token')) return
+    */
     authorUser()
-  }, [location.pathname, navigate])
+  }, [authorUser])
   return (
     <div className={styles.container}>
       <Link to='/' className={styles.title}>
