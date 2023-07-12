@@ -1,4 +1,3 @@
-import 'App.css'
 import Layout from 'components/layout'
 import Home from 'pages/Home'
 import Login from 'pages/Login'
