@@ -5,14 +5,12 @@ import styles from 'components/layout/Layout.module.css'
 
 function Layout({ children }) {
   return (
-    <div>
+    <div className={styles.container}>
       <Header />
-
       <main className={styles.contents}>{children}</main>
       <ModalPortal>
         <Modal />
       </ModalPortal>
-
     </div>
   )
 }
