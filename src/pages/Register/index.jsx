@@ -45,10 +45,7 @@ function Register() {
   const handleRegister = async (e) => {
     e.preventDefault()
     const { userId, password } = registerInfo
-    if (userId === '' || password === '') {
-      dispatch(openAlert('아이디 혹은 비밀번호를 입력해 주세요.'))
-      return
-    }
+
     try {
       await registerJWT(userId, password)
       setRegisterInfo({ userId: '', password: '' })

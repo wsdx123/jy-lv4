@@ -46,10 +46,6 @@ function Login() {
     e.preventDefault()
 
     const { userId, password } = loginInfo
-    if (userId === '' || password === '') {
-      dispatch(openAlert('아이디 혹은 비밀번호를 입력해 주세요.'))
-      return
-    }
 
     try {
       const tmp = await loginJWT(userId, password)
