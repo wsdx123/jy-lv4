@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { openAlert } from 'redux/modules/modalSlice'
 import { registerJWT } from 'service/api'
+import styles from 'pages/Register/Register.module.css'
 
 function Register() {
   const [registerInfo, setRegisterInfo] = useState({
@@ -59,14 +60,19 @@ function Register() {
   }
 
   return (
-    <div>
-      <form onSubmit={handleRegister}>
-        <Input type='id' value={registerInfo.userId} onChange={handleInput} onInvalid={handleFormHelpText} />
-        <Input type='password' value={registerInfo.password} onChange={handleInput} onInvalid={handleFormHelpText} />
+    <div className={styles.container}>
+      <h2 className={styles.title}>회원가입</h2>
+      <form className={styles.registerForm} onSubmit={handleRegister}>
+        <div className={styles.inputContainer}>
+          <Input type='id' value={registerInfo.userId} onChange={handleInput} onInvalid={handleFormHelpText} />
+          {errorMessage.id && <p className={styles.helpText}>{errorMessage.id}</p>}
+        </div>
+        <div className={styles.inputContainer}>
+          <Input type='password' value={registerInfo.password} onChange={handleInput} onInvalid={handleFormHelpText} />
+          {errorMessage.password && <p className={styles.helpText}>{errorMessage.password}</p>}
+        </div>
         <button type='submit'>회원가입</button>
       </form>
-      {errorMessage.id && <p>{errorMessage.id}</p>}
-      {errorMessage.password && <p>{errorMessage.password}</p>}
     </div>
   )
 }
