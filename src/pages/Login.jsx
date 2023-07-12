@@ -16,11 +16,11 @@ function Login() {
     e.preventDefault()
 
     const { userId, password } = loginInfo
-    if (userId === '' || password === '') {
-      dispatch(openAlert('아이디 혹은 비밀번호를 입력해주세요.'))
+    // if (userId === '' || password === '') {
+    //   dispatch(openAlert('아이디 혹은 비밀번호를 입력해주세요.'))
 
-      return
-    }
+    //   return
+    // }
 
     try {
       const tmp = await loginJWT(userId, password)
@@ -50,11 +50,13 @@ function Login() {
           type='text'
           value={loginInfo.userId}
           onChange={(e) => setLoginInfo({ ...loginInfo, userId: e.target.value })}
+          required
         />
         <input
           type='password'
           value={loginInfo.password}
           onChange={(e) => setLoginInfo({ ...loginInfo, password: e.target.value })}
+          required
         />
         <button type='submit'>로그인</button>
       </form>

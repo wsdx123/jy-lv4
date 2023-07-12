@@ -2,6 +2,7 @@ import { useMutationHook } from 'hooks/queryHooks'
 import { useState } from 'react'
 import { addPost } from 'service/api'
 import { v4 } from 'uuid'
+import styles from 'pages/Post.module.css'
 
 function Post() {
   const [input, setInput] = useState('')
@@ -19,6 +20,7 @@ function Post() {
   return (
     <div>
       <form onSubmit={handleSubmit}>
+        <div className={styles.picContainer}>hi</div>
         <input value={input} onChange={(e) => setInput(e.target.value)} />
         <button type='submit'>작성</button>
       </form>
