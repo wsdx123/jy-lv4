@@ -1,8 +1,9 @@
+import Card from 'components/Card'
 import { useMutationHook } from 'hooks/queryHooks'
 import { useState } from 'react'
 import { useQuery } from 'react-query'
-import { Link } from 'react-router-dom'
 import { deletePost, getPosts, updatePost } from 'service/api'
+import styles from 'pages/Home/Home.module.css'
 
 function Home() {
   const [updateToggle, setUpdateToggle] = useState(false)
@@ -44,31 +45,31 @@ function Home() {
   }
 
   return (
-    <div>
-      <Link to='/post'>작성</Link>
+    <div className={styles.container}>
       {data.map((el) => (
-        <div key={el.id}>
-          <div>{`${el.id} : ${el.context}`}</div>
-          {updateToggle === el.id && (
-            <div>
-              <input value={updateInput} onChange={(e) => setUpdateInput(e.target.value)} />
-              <button type='button' onClick={() => handleUpdate(el)}>
-                완료
-              </button>
-              <button type='button' onClick={() => setUpdateToggle(false)}>
-                취소
-              </button>
-            </div>
-          )}
-          <div>
-            <button onClick={() => handleDelete(el.id)} type='button'>
-              삭제
-            </button>
-            <button type='button' onClick={() => setUpdateToggle(el.id)}>
-              수정
-            </button>
-          </div>
-        </div>
+        <Card key={el.id} data={el} />
+        // <div key={el.id}>
+        //   <div>{`${el.id} : ${el.context}`}</div>
+        //   {updateToggle === el.id && (
+        //     <div>
+        //       <input value={updateInput} onChange={(e) => setUpdateInput(e.target.value)} />
+        //       <button type='button' onClick={() => handleUpdate(el)}>
+        //         완료
+        //       </button>
+        //       <button type='button' onClick={() => setUpdateToggle(false)}>
+        //         취소
+        //       </button>
+        //     </div>
+        //   )}
+        //   <div>
+        //     <button onClick={() => handleDelete(el.id)} type='button'>
+        //       삭제
+        //     </button>
+        //     <button type='button' onClick={() => setUpdateToggle(el.id)}>
+        //       수정
+        //     </button>
+        //   </div>
+        // </div>
       ))}
     </div>
   )

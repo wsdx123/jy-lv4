@@ -1,4 +1,5 @@
 import Layout from 'components/layout'
+import Detail from 'pages/Detail'
 import Home from 'pages/Home'
 import Login from 'pages/Login'
 import Post from 'pages/Post'
@@ -14,6 +15,7 @@ function App() {
           <Route path='/post' element={<Post />} />
           <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/detail/:postId' element={<Detail />} />
         </Routes>
       </Layout>
     </BrowserRouter>

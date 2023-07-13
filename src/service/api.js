@@ -5,6 +5,11 @@ const getPosts = async () => {
   return posts.data
 }
 
+const getPost = async (id) => {
+  const post = await axios.get(`${process.env.REACT_APP_SERVER_URL}/posts/${id}`)
+  return post.data
+}
+
 const addPost = async (newPost) => {
   await axios.post(`${process.env.REACT_APP_SERVER_URL}/posts`, newPost)
 }
@@ -41,4 +46,4 @@ const authorizeJWT = async (token) => {
   return response
 }
 
-export { getPosts, addPost, deletePost, updatePost, registerJWT, loginJWT, authorizeJWT }
+export { getPosts, getPost, addPost, deletePost, updatePost, registerJWT, loginJWT, authorizeJWT }
