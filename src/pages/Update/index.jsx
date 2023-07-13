@@ -1,7 +1,7 @@
 import { useMutationHook } from 'hooks/queryHooks'
 import { useEffect, useState } from 'react'
 import { getPost, updatePost } from 'service/api'
-import styles from 'pages/Post/Post.module.css'
+import styles from 'pages/Update/Update.module.css'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { storage } from 'firebase.js'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -62,8 +62,8 @@ function Update() {
   }
 
   return (
-    <div className={styles.postContainer}>
-      <form className={styles.postForm} onSubmit={handleSubmit}>
+    <div className={styles.updateContainer}>
+      <form className={styles.updateForm} onSubmit={handleSubmit}>
         <div className={styles.picContainer}>
           <label className={styles.fileLabel} htmlFor='file'>
             <CameraIcon className={styles.icon} />

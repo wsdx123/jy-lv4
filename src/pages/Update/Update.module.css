@@ -7,7 +7,7 @@
   align-items: center;
 }
 
-.postContainer {
+.updateContainer {
   padding: 20px;
   width: 500px;
   height: auto;
@@ -18,7 +18,7 @@
   border-radius: 20px;
 }
 
-.postForm {
+.updateForm {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
