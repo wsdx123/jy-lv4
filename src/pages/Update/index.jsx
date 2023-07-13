@@ -15,6 +15,7 @@ function Update() {
     title: '',
     content: ''
   })
+
   const [imgFile, setImgFile] = useState(null)
   const [preview, setPreview] = useState(null)
 
