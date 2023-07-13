@@ -46,7 +46,7 @@ function Update() {
       dispatch(openAlert('이미지를 넣어주세요.'))
       return
     }
-    const newPost = { id: data.id, title: input.title, context: input.content, picture: imgFile }
+    const newPost = { ...data, title: input.title, context: input.content, picture: imgFile }
     const imageRef = ref(storage, `images/${newPost.id}`)
 
     await uploadBytes(imageRef, imgFile)

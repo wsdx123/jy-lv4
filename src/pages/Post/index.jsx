@@ -30,7 +30,7 @@ function Post() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const newPost = { id: v4(), title: input.title, context: input.content, picture: '' }
+    const newPost = { id: v4(), createdAt: Date.now(), title: input.title, context: input.content, picture: '' }
     const imageRef = ref(storage, `images/${newPost.id}`)
 
     await uploadBytes(imageRef, imgFile)
