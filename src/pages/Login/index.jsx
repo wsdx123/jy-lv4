@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { openAlert } from 'redux/modules/modalSlice'
 import { loginJWT } from 'service/api'
 import styles from 'pages/Login/Login.module.css'
+import Button from 'components/Button'
 
 function Login() {
   const [loginInfo, setLoginInfo] = useState({
@@ -71,7 +72,7 @@ function Login() {
           <Input type='password' value={loginInfo.password} onChange={handleInput} onInvalid={handleFormHelpText} />
           {errorMessage.password && <p className={styles.helpText}>{errorMessage.password}</p>}
         </div>
-        <button type='submit'>로그인</button>
+        <Button type='submit'>로그인</Button>
       </form>
     </div>
   )

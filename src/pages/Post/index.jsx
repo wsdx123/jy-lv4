@@ -7,6 +7,7 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { storage } from 'firebase.js'
 import { useNavigate } from 'react-router-dom'
 import { CameraIcon } from 'assets/svgs'
+import Button from 'components/Button'
 
 function Post() {
   const [input, setInput] = useState({
@@ -76,7 +77,7 @@ function Post() {
             onChange={(e) => setInput({ ...input, content: e.target.value })}
           />
         </div>
-        <button type='submit'>작성</button>
+        <Button type='submit'>작성</Button>
       </form>
     </div>
   )

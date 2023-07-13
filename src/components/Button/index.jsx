@@ -1,6 +1,8 @@
-function Button({ type, handler, children }) {
+import styles from 'components/Button/Button.module.css'
+
+function Button({ type, onClick, children }) {
   return (
-    <button onClick={handler} type={type || 'button'}>
+    <button className={styles.container} onClick={onClick} type={type || 'button'}>
       {children}
     </button>
   )
