@@ -51,6 +51,7 @@ function Header() {
       </Link>
       {islogin ? (
         <div>
+          <Link to='/post'>글쓰기</Link>
           <button onClick={handleLogOut} type='button'>
             로그아웃
           </button>

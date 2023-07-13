@@ -5,7 +5,7 @@ import styles from 'components/layout/Layout.module.css'
 
 function Layout({ children }) {
   return (
-    <div className={styles.container}>
+    <div>
       <Header />
       <main className={styles.contents}>{children}</main>
       <ModalPortal>
