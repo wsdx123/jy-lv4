@@ -5,13 +5,15 @@ import styles from 'pages/Detail/Detail.module.css'
 import { useMutationHook } from 'hooks/queryHooks'
 import { useDispatch } from 'react-redux'
 import { openAlert } from 'redux/modules/modalSlice'
+import Button from 'components/Button'
 
 function Detail() {
   const params = useParams().postId
+  const { isLoading, isError, data } = useQuery(['post', params], () => getPost(params))
 
-  const { isLoading, data } = useQuery(['post', params], () => getPost(params))
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
   const deleteMutation = useMutationHook(deletePost, 'posts')
 
   const handleDelete = () => {
@@ -21,6 +23,7 @@ function Detail() {
   }
 
   if (isLoading) return <div>Loading...</div>
+  if (isError) return <div>Error!</div>
 
   return (
     <div className={styles.container}>
@@ -28,10 +31,10 @@ function Detail() {
       <img className={styles.picture} src={data.picture} alt={`picture_${data.id}`} />
       <p>{data.context}</p>
       <div className={styles.buttonBox}>
-        <Link to={`/update/${data.id}`}>수정</Link>
-        <button type='button' onClick={handleDelete}>
-          삭제
-        </button>
+        <Link className={styles.modify} to={`/update/${data.id}`}>
+          수정
+        </Link>
+        <Button onClick={handleDelete}>삭제</Button>
       </div>
     </div>
   )

@@ -63,7 +63,28 @@
   width: 100%;
 }
 
-.inputBox > textarea {
+.titleInput {
+  display: flex;
+  width: 100%;
+  height: 24px;
+  font-size: 16px;
+  padding: 8px 0px 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #e8e8e8;
+}
+
+.textInput {
   resize: none;
   height: 100px;
+  width: 100%;
+  font-size: 16px;
+  padding: 8px 0px 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #e8e8e8;
+}
+
+.btnContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }

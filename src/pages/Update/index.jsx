@@ -9,13 +9,13 @@ import { CameraIcon } from 'assets/svgs'
 import { useQuery } from 'react-query'
 import { useDispatch } from 'react-redux'
 import { openAlert } from 'redux/modules/modalSlice'
+import Button from 'components/Button'
 
 function Update() {
   const [input, setInput] = useState({
     title: '',
     content: ''
   })
-
   const [imgFile, setImgFile] = useState(null)
   const [preview, setPreview] = useState(null)
 
@@ -25,20 +25,20 @@ function Update() {
   const params = useParams().postId
   const { data } = useQuery(['post', params], () => getPost(params))
 
-  useEffect(() => {
-    const { title, context, picture } = data
-    setInput({ title, content: context })
-    setPreview(picture)
-  }, [data])
-
   const mutation = useMutationHook(updatePost, 'posts')
 
   const handleUpload = (e) => {
     const file = e.target.files[0]
-    console.log(file)
     const img = URL.createObjectURL(file)
     setImgFile(file)
     setPreview(img)
+  }
+
+  const handleCancel = () => {
+    setInput({ title: '', content: '' })
+    setImgFile(null)
+    setPreview(null)
+    navigate('/')
   }
 
   const handleSubmit = async (e) => {
@@ -62,6 +62,12 @@ function Update() {
     navigate(`/detail/${data.id}`)
   }
 
+  useEffect(() => {
+    const { title, context, picture } = data
+    setInput({ title, content: context })
+    setPreview(picture)
+  }, [data])
+
   return (
     <div className={styles.updateContainer}>
       <form className={styles.updateForm} onSubmit={handleSubmit}>
@@ -81,6 +87,7 @@ function Update() {
             placeholder='제목'
             value={input.title}
             onChange={(e) => setInput({ ...input, title: e.target.value })}
+            className={styles.titleInput}
           />
         </div>
         <div className={styles.inputBox}>
@@ -91,9 +98,13 @@ function Update() {
             value={input.content}
             placeholder='내용을 입력해주세요'
             onChange={(e) => setInput({ ...input, content: e.target.value })}
+            className={styles.textInput}
           />
         </div>
-        <button type='submit'>작성</button>
+        <div className={styles.btnContainer}>
+          <Button type='submit'>작성</Button>
+          <Button onClick={handleCancel}>취소</Button>
+        </div>
       </form>
     </div>
   )

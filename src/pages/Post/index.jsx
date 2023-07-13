@@ -23,24 +23,31 @@ function Post() {
   const mutation = useMutationHook(addPost, 'posts')
 
   const handleUpload = (e) => {
-    const file = e.target.files[0]
-    console.log(file)
+    const { files } = e.target
+    if (!files[0]) return
+
+    const file = files[0]
     const img = URL.createObjectURL(file)
     setImgFile(file)
     setPreview(img)
+  }
+
+  const handleCancel = () => {
+    reset()
+    setImgFile(null)
+    setPreview(null)
+    navigate('/')
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     const newPost = { id: v4(), createdAt: Date.now(), title: value.title, context: value.content, picture: '' }
     const imageRef = ref(storage, `images/${newPost.id}`)
-
     await uploadBytes(imageRef, imgFile)
-
     const downloadURL = await getDownloadURL(imageRef)
     newPost.picture = downloadURL
-
     mutation.mutate(newPost)
+
     reset()
     setImgFile(null)
     setPreview(null)
@@ -55,13 +62,18 @@ function Post() {
             <CameraIcon className={styles.icon} />
           </label>
           <input className={styles.file} id='file' type='file' onChange={handleUpload} />
-          <div className={styles.previews}>
-            {preview && <img src={preview} alt='미리보기' width={100} height={100} />}
-          </div>
+          <div>{preview && <img src={preview} alt='미리보기' width={100} height={100} />}</div>
         </div>
         <div className={styles.inputBox}>
           <label htmlFor='title'>제목</label>
-          <input id='title' placeholder='제목' value={value.title} onChange={onChange} name='title' />
+          <input
+            className={styles.titleInput}
+            id='title'
+            placeholder='제목'
+            value={value.title}
+            onChange={onChange}
+            name='title'
+          />
         </div>
         <div className={styles.inputBox}>
           <label htmlFor='content'>내용</label>
@@ -72,9 +84,13 @@ function Post() {
             placeholder='내용을 입력해주세요'
             onChange={onChange}
             name='content'
+            className={styles.textInput}
           />
         </div>
-        <Button type='submit'>작성</Button>
+        <div className={styles.btnContainer}>
+          <Button type='submit'>작성</Button>
+          <Button onClick={handleCancel}>취소</Button>
+        </div>
       </form>
     </div>
   )

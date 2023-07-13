@@ -8,6 +8,7 @@ import { authorizeJWT } from 'service/api'
 
 function Header() {
   const [islogin, setIsLogin] = useState(false)
+
   const navigate = useNavigate()
   const location = useLocation()
   const dispatch = useDispatch()
@@ -26,7 +27,6 @@ function Header() {
         navigate('/')
       }
     } catch (error) {
-      console.log(error.response.data.message)
       setIsLogin(false)
       if (location.pathname === '/register' || location.pathname === '/login') return
       if (localStorage.getItem('token')) {
@@ -40,11 +40,9 @@ function Header() {
   }, [dispatch, location.pathname, navigate])
 
   useEffect(() => {
-    /*
-    if ((location.pathname === '/register' || location.pathname === '/login') && !localStorage.getItem('token')) return
-    */
     authorUser()
   }, [authorUser])
+
   return (
     <div className={styles.container}>
       <Link to='/' className={styles.title}>

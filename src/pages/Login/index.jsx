@@ -45,12 +45,10 @@ function Login() {
 
   const handleRegister = async (e) => {
     e.preventDefault()
-
     const { userId, password } = loginInfo
-
     try {
-      const tmp = await loginJWT(userId, password)
-      localStorage.setItem('token', JSON.stringify(tmp))
+      const token = await loginJWT(userId, password)
+      localStorage.setItem('token', JSON.stringify(token))
       setLoginInfo({ userId: '', password: '' })
       navigate('/')
     } catch (error) {
