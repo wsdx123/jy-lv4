@@ -7,13 +7,14 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { storage } from 'firebase.js'
 import { useNavigate } from 'react-router-dom'
 import { CameraIcon } from 'assets/svgs'
+
+import useInput from 'hooks/useInput'
+
 import Button from 'components/Button'
 
 function Post() {
-  const [input, setInput] = useState({
-    title: '',
-    content: ''
-  })
+  const { value, onChange, reset } = useInput({ title: '', content: '' })
+
   const [imgFile, setImgFile] = useState(null)
   const [preview, setPreview] = useState(null)
 
@@ -31,7 +32,7 @@ function Post() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const newPost = { id: v4(), createdAt: Date.now(), title: input.title, context: input.content, picture: '' }
+    const newPost = { id: v4(), createdAt: Date.now(), title: value.title, context: value.content, picture: '' }
     const imageRef = ref(storage, `images/${newPost.id}`)
 
     await uploadBytes(imageRef, imgFile)
@@ -40,7 +41,7 @@ function Post() {
     newPost.picture = downloadURL
 
     mutation.mutate(newPost)
-    setInput({ title: '', content: '' })
+    reset()
     setImgFile(null)
     setPreview(null)
     navigate('/')
@@ -60,21 +61,17 @@ function Post() {
         </div>
         <div className={styles.inputBox}>
           <label htmlFor='title'>제목</label>
-          <input
-            id='title'
-            placeholder='제목'
-            value={input.title}
-            onChange={(e) => setInput({ ...input, title: e.target.value })}
-          />
+          <input id='title' placeholder='제목' value={value.title} onChange={onChange} name='title' />
         </div>
         <div className={styles.inputBox}>
           <label htmlFor='content'>내용</label>
           <textarea
             id='content'
             type='text'
-            value={input.content}
+            value={value.content}
             placeholder='내용을 입력해주세요'
-            onChange={(e) => setInput({ ...input, content: e.target.value })}
+            onChange={onChange}
+            name='content'
           />
         </div>
         <Button type='submit'>작성</Button>
