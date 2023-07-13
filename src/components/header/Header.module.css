@@ -18,6 +18,30 @@
   text-decoration: none;
 }
 
-.registerBtn {
-  margin-right: 30px;
+.btnContainer {
+  display: flex;
+}
+
+.btnContainer > button {
+  margin-right: 20px;
+}
+
+.linkBtn {
+  margin-right: 20px;
+  text-decoration: none;
+  color: black;
+  font-size: 13px;
+  display: flex;
+  width: 152px;
+  height: 28px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 8px;
+  border: 1px solid var(--light-grayscale-border, #e8e8e8);
+  background: var(--light-grayscale-background-primary, #fff);
+  cursor: pointer;
+
+  /* Light/Drop Shadow/1 */
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.06);
 }

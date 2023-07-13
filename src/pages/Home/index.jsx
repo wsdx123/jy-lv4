@@ -48,28 +48,6 @@ function Home() {
     <div className={styles.container}>
       {data.map((el) => (
         <Card key={el.id} data={el} />
-        // <div key={el.id}>
-        //   <div>{`${el.id} : ${el.context}`}</div>
-        //   {updateToggle === el.id && (
-        //     <div>
-        //       <input value={updateInput} onChange={(e) => setUpdateInput(e.target.value)} />
-        //       <button type='button' onClick={() => handleUpdate(el)}>
-        //         완료
-        //       </button>
-        //       <button type='button' onClick={() => setUpdateToggle(false)}>
-        //         취소
-        //       </button>
-        //     </div>
-        //   )}
-        //   <div>
-        //     <button onClick={() => handleDelete(el.id)} type='button'>
-        //       삭제
-        //     </button>
-        //     <button type='button' onClick={() => setUpdateToggle(el.id)}>
-        //       수정
-        //     </button>
-        //   </div>
-        // </div>
       ))}
     </div>
   )

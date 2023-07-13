@@ -1,3 +1,4 @@
+import Button from 'components/Button'
 import styles from 'components/header/Header.module.css'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -50,18 +51,18 @@ function Header() {
         Share Experience
       </Link>
       {islogin ? (
-        <div>
-          <Link to='/post'>글쓰기</Link>
-          <button onClick={handleLogOut} type='button'>
-            로그아웃
-          </button>
+        <div className={styles.btnContainer}>
+          <Link className={styles.linkBtn} to='/post'>
+            글쓰기
+          </Link>
+          <Button onClick={handleLogOut}>로그아웃</Button>
         </div>
       ) : (
-        <div>
-          <Link to='/register' className={styles.registerBtn}>
+        <div className={styles.btnContainer}>
+          <Link to='/register' className={styles.linkBtn}>
             회원가입
           </Link>
-          <Link to='/login' className={styles.registerBtn}>
+          <Link to='/login' className={styles.linkBtn}>
             로그인
           </Link>
         </div>

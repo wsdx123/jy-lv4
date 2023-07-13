@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { openAlert } from 'redux/modules/modalSlice'
 import { registerJWT } from 'service/api'
 import styles from 'pages/Register/Register.module.css'
+import Button from 'components/Button'
 
 function Register() {
   const [registerInfo, setRegisterInfo] = useState({
@@ -68,7 +69,7 @@ function Register() {
           <Input type='password' value={registerInfo.password} onChange={handleInput} onInvalid={handleFormHelpText} />
           {errorMessage.password && <p className={styles.helpText}>{errorMessage.password}</p>}
         </div>
-        <button type='submit'>회원가입</button>
+        <Button type='submit'>회원가입</Button>
       </form>
     </div>
   )
