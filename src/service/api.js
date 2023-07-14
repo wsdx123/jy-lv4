@@ -1,8 +1,13 @@
 import axios from 'axios'
 
 const getPosts = async () => {
-  const posts = await axios.get(`${process.env.REACT_APP_SERVER_URL}/posts`)
+  const posts = await axios.get(`${process.env.REACT_APP_SERVER_URL}/posts?_sort=createdAt&_order=desc`)
   return posts.data
+}
+
+const getPost = async (id) => {
+  const post = await axios.get(`${process.env.REACT_APP_SERVER_URL}/posts/${id}`)
+  return post.data
 }
 
 const addPost = async (newPost) => {
@@ -25,11 +30,20 @@ const registerJWT = async (id, password) => {
 }
 
 const loginJWT = async (id, password) => {
-  const token = await axios.post(`${process.env.REACT_APP_JWT_URL}/login`, {
+  const response = await axios.post(`${process.env.REACT_APP_JWT_URL}/login`, {
     id,
     password
   })
-  return token
+  return response.data.token
 }
 
-export { getPosts, addPost, deletePost, updatePost, registerJWT, loginJWT }
+const authorizeJWT = async (token) => {
+  const response = await axios.get(`${process.env.REACT_APP_JWT_URL}/user`, {
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  })
+  return response
+}
+
+export { getPosts, getPost, addPost, deletePost, updatePost, registerJWT, loginJWT, authorizeJWT }
